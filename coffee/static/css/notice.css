@@ -1,0 +1,19 @@
+/* .all {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 10vh;  전체 높이의 10%로 조정 
+  font-size: 24px;  글씨 크기 조정 
+  margin-top: 100px;
+  border-bottom: 2px solid black;
+} */
+
+/* .table-container {
+  margin-top: 20px;
+} */
+
+.scroll_up {
+  position: fixed;
+  right: 30px;
+  bottom: 40px;
+}

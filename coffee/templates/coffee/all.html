@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/all.css' %}">
+
+{% endblock style %}
+{% block contents %}
+
+<div class="container">
+    <div class="all">
+        {% if current_tab %}
+        <strong>{{current_tab}}</strong>
+        {% else %}
+        <strong>전체상품</strong>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+
+        {% for product in products %}
+        <div class="col mt-5">
+            <div class="card product-card" style="width: 18rem; height: 30rem; position: relative;" data-id="{{product.id}}">
+                <img src={{product.src}} class="card-img-top" alt="제품사진" style="object-fit: cover; width: 100%; height: 70%;">
+        
+                 <div class="card-buttons">
+                    <div class="btn-group rounded-circle">
+                        {% if user.is_authenticated %}
+                            {% if product in user.userprofile.jjim.all %}
+                                <button class="btn btn-dark btn-lg heart-icon" style="border-radius:50%">
+                                    <span class="material-symbols-outlined heart-icon-plus" style="font-size: 4rem; display: none;">heart_plus</span>
+                                    <span class="material-symbols-outlined heart-icon-minus" style="font-size: 4rem;">heart_minus</span>
+                                </button>
+                            {% else %}
+                                <button class="btn btn-dark btn-lg heart-icon" style="border-radius:50%">
+                                    <span class="material-symbols-outlined heart-icon-plus" style="font-size: 4rem;">heart_plus</span>
+                                    <span class="material-symbols-outlined heart-icon-minus" style="font-size: 4rem; display: none;">heart_minus</span>
+                                </button>
+                            {% endif %}
+                        {% else %}
+                            {% comment %} <p class="text-muted">찜하려면 로그인하세요.</p> {% endcomment %}
+                            <button class="btn btn-dark btn-lg heart-icon" style="border-radius:50%" id="loginConfirmButton">
+                                <span class="material-symbols-outlined heart-icon-plus" style="font-size: 4rem;">heart_plus</span>
+                                <span class="material-symbols-outlined heart-icon-minus" style="font-size: 4rem; display: none;">heart_minus</span>
+                            </button>
+                        {% endif %}
+                    </div>
+                </div> 
+
+
+                    <div class="card-body">
+                        <h6 class="card-title">{{product.name|truncatechars:18}}</h6>
+                        <p class="card-subtitle mb-2 text-body-secondary">{{product.price}}</p>
+                        <p class="card-text">{{product.description|truncatechars:45}}</p>
+                    </div>
+                {% comment %} </a> {% endcomment %}
+            </div>
+        </div>
+        {% endfor %} 
+
+    </div>
+</div>
+
+
+<!-- 페이징 처리 -->
+<nav aria-label="">
+    <ul class="pagination justify-content-center mt-5">
+    {% if not products.has_previous %}
+        <li class="page-item disabled">
+        <a class="page-link" href="#">Previous</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{products.previous_page_number}}">Previous</a>
+            </li>
+    {% endif %}
+
+    {% for page in products.paginator.page_range %}
+        {% if page >= products.number|add:-5 and page <= products.number|add:5%}
+        <li class="page-item {% if page == products.number %}active{% endif %}" aria-current="page">
+            <a class="page-link" href="?page={{page}}">{{page}}</a>
+        </li>
+        {% endif %}
+    {% endfor %}
+
+    {% if products.has_next %}
+        <li class="page-item">
+        <a class="page-link" href="?page={{products.next_page_number}}">Next</a>
+        </li>
+    {% endif %}
+    </ul>
+</nav>
+
+<input type="image" class="scroll_up" src="{% static 'img/scroll_up.png' %}" onClick="javascript:window.scrollTo(0,0)" alt="맨위로" width="30px" height="30px"/>
+
+
+<!-- 로그인 확인코드 지피티 코드 -->
+{% if user.is_authenticated %}
+<script>
+  var isAuthenticated = true;
+</script>
+{% else %}
+<script>
+  var isAuthenticated = false;
+</script>
+{% endif %}
+
+<!-- 페이지 번호 클릭 /검색 / 정렬 시 이동할 폼 -->
+<form action="{% url 'coffee:index' %}" method="get" id="actionForm">
+{% comment %} <input type="hidden" name="keyword" value="{{keyword|default_if_none:''}}" id="keyword"> {% endcomment %}
+<input type="hidden" name="page" value="{{page}}" id="page">
+{% comment %} <input type="hidden" name="sort" value="{{sort}}" id="sort"> {% endcomment %}
+</form> 
+
+{% endblock contents %}
+{% block script %}
+<script src="{% static 'js/index.js' %}"></script>
+{% endblock script %}

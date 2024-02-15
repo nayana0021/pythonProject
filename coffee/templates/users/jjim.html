@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+  <link rel="stylesheet" href="{% static 'css/jjim.css' %}">
+{% endblock style %}
+{% block contents %}
+{% csrf_token %}
+  
+
+<div class="container">
+  <div class="jjim_list">
+    <strong class="jjim">찜 목록</strong>
+  </div>
+</div>
+
+{% if user.is_authenticated %}
+<div class="container mt-3">
+  {% for product in user.jjim.all %}
+  <div class="product-item mt-5" data-id="{{product.id}}">
+    {% comment %} <p>찜한 제품 ID: {{ product.id }}</p> {% endcomment %}
+    {% comment %} <p>제품명: {{ product.name }}</p> {% endcomment %}
+    <img src="{{product.src}}" alt="제품사진" style="width:150px; height:150px">
+    <span class="product_name"><a href="{% url 'coffee:product_detail' product.id %}">{{product.name}}</a></span>
+    <span>{{product.price}} 원</span>
+      {% comment %} <button type="button" class="btn btn-outline-info mx-5 deleteButton" >삭제하기</button> {% endcomment %}
+      <a class="btn btn-outline-info mx-5 deleteButton" href="{% url 'coffee:jjim_delete' product.id %}">삭제하기</a>
+      {% comment %} <button class="btn btn-outline-info mx-5 deleteButton" data-id="{{product.id}}">삭제하기</button> {% endcomment %}
+  </div>
+  {% empty %}
+  <p>아직 찜한 제품이 없습니다.</p>
+  {% endfor %}
+</div>
+{% else %}
+<p>찜하려면 로그인하세요.</p>
+{% endif %}
+<input type="image" class="scroll_up" src="{% static 'img/scroll_up.png' %}" onclick="javascript:window.scrollTo(0,0)" alt="맨위로" width="30px" height="30px"/>
+
+{% endblock contents %}
+{% block script %}
+<script src="{% static 'js/jjim_delete.js' %}"></script>
+
+{% endblock script %}
+

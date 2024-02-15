@@ -1,0 +1,99 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="{% url 'coffee:index' %}">
+      <img src="{% static 'img/central_perk1.png' %}" alt="로고" width="180">
+    </a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'coffee:product_list' '원두커피' %}">원두커피</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'coffee:product_list' '캡슐커피' %}">캡슐커피</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'coffee:product_list' '커피용품' %}">커피용품</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'coffee:all' %}">전체상품</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'notice:notice_list' %}">공지사항</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'coffee:seller' %}">판매자정보</a>
+        </li>
+        {% comment %} <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li> {% endcomment %}
+
+        {% comment %} <li class="nav-item">
+          <a class="nav-link" href="#">
+        <span class="material-symbols-outlined">
+          shopping_bag
+          </span>
+        </a>
+        </li> {% endcomment %}
+      </ul>
+
+      <form class="d-flex ms-auto me-3" id="searchForm" action="{% url "coffee:search" %}" method="GET">
+        {% comment %} <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> {% endcomment %}
+        <input class="form-control me-2" type="search" id="keyword" name="keyword" placeholder="Search" aria-label="Search" value="{{keyword|default_if_none:''}}">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+        {% comment %} <a class="nav-link" href="{% url 'coffee:search' %}">Search</a> {% endcomment %}
+      </form>
+
+      <a class="nav-link mx-2" href="{% url 'coffee:jjim_page' %}">
+        <span class="material-symbols-outlined">
+          favorite
+          </span>
+      </a>
+
+      {% comment %} <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"> {% endcomment %}
+          <a class="nav-link mx-2" href="{% url 'payment:cart' %}">
+            <span class="material-symbols-outlined">
+            shopping_bag
+            </span>
+          </a>
+        {% comment %} </li>
+      </ul> {% endcomment %}
+
+      {% comment %} <button type="button" class="btn btn-outline-secondary mx-2">로그인</button>
+      <button type="button" class="btn btn-outline-secondary mx-1">회원가입</button> {% endcomment %}
+      {% comment %} <button type="button" class="btn btn-light mx-1 btn-sm">로그인</button> {% endcomment %}
+
+      {% comment %} {% if not user.is_authenticated %}
+      <a class="nav-link" href="{% url 'users:login' %}">로그인</a>
+    {% else %}
+      <!-- request.user : 로그인 성공시 user 정보 가져오기 -->
+      <a class="nav-link" href="{% url 'user:logout' %}">{{user.username}}
+        로그아웃</a>
+      <a class="nav-link" href="{% url 'user:password_change' %}">비밀번호 변경</a>
+    {% endif %} {% endcomment %}
+
+    {% if not user.is_authenticated %}
+      <div class="navbar-nav mx-2">
+        <a class="nav-link" href="{% url 'user:login' %}">로그인</a>
+      </div>
+      <div class="navbar-nav mx-2">
+        <a class="nav-link" href="{% url 'user:register' %}">회원가입</a>
+      </div>
+    {% else %}
+    <!-- request.user : 로그인 성공시 user 정보 가져오기 -->
+    <a class="nav-link mx-2" href="{% url 'user:password_change' %}">비밀번호 변경</a>
+    <a class="nav-link mx-2" href="{% url 'user:logout' %}">{{user.username}}
+      로그아웃</a>
+    {% endif %}
+
+      {% comment %} <button type="button" class="btn btn-light mx-1 btn-sm">회원가입</button> {% endcomment %}
+    </div>
+  </div>
+</nav>

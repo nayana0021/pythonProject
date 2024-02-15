@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+<link rel="stylesheet" href="{% static 'css/detail.css' %}">
+
+{% endblock style %}
+{% block contents %}
+<div class="container title">
+    <div class="real_title">제품 상세</div>
+
+    <div class="container mt-3">
+        <div class="row" data-id="{{product.id}}">
+            <div class="col-md-5 d-flex justify-content-center align-items-center">
+                <img src="{{product.src}}" alt="제품사진"/>
+            </div>
+            <div class="col-md-7 align-self-center">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>제품명</td>
+                            <td><b>{{product.name}}</b></td>
+                        </tr>
+                        <tr>
+                            <td>가격</td>
+                            <td><b>{{product.price}}</b></td>
+                        </tr>
+                        <tr>
+                            <td>수량</td>
+                            {% comment %} <td><b>{{product.price}}</b></td> {% endcomment %}
+                            <td><input class="form-control" type="number" placeholder="수량 입력" value="1"></td>
+                        </tr>
+                        <tr>
+                            <td>제품 정보</td>
+                            <td style="width:600px"><b>{{product.description}}</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-lg btn-dark py-3" id="cartConfirm" style="border-radius:45px" aria-label="장바구니">장바구니
+                        <span class="material-symbols-outlined">
+                            shopping_bag
+                            </span>
+                    </button>
+                     <button class="btn btn-lg btn-light py-3 addheart" id="jjimConfirm" style="border-radius:45px" aria-label="찜하기">찜
+                        <span class="material-symbols-outlined">
+                            favorite
+                            </span>
+                        </button>
+
+                    <!-- 찜 버튼 원본 -->
+                    {% comment %} <button class="btn btn-lg btn-light py-3 addheart" id="jjimConfirm" style="border-radius:45px" aria-label="찜하기">찜
+                        <span class="material-symbols-outlined">
+                            favorite
+                            </span> {% endcomment %}
+
+                            <!-- 이렇게 할 필요가 없고 js 코드로 한번 해봐야지 그래서 코멘트 -->
+                        {% comment %} {% if user.is_authenticated %}
+                        <button class="btn btn-lg btn-light py-3 addheart" id="jjimConfirm" style="border-radius:45px" aria-label="찜하기">찜
+                            <span class="material-symbols-outlined">
+                            {% if product in user.userprofile.jjim.all %}
+                                <!-- 찜 한 상태 아이콘 -->
+                                heart_check
+                            {% else %}
+                            <!-- 찜 안한 상태 아이콘 -->
+                                favorite
+                            {% endif %}
+                            </span>
+                        </button>
+                        {% else %}
+                          <!-- 로그인을 안했으니 찜 안한 상태 아이콘 -->
+                          <button class="btn btn-lg btn-light py-3 addheart" id="jjimConfirm" style="border-radius:45px" aria-label="찜하기">찜
+                            <span class="material-symbols-outlined">
+                                favorite
+                                </span>
+                            </button>
+                        {% endif %} {% endcomment %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="image" class="scroll_up" src="{% static 'img/scroll_up.png' %}" onClick="javascript:window.scrollTo(0,0)" alt="맨위로" width="30px" height="30px"/>
+
+<!-- 로그인 확인코드 지피티 코드 -->
+{% if user.is_authenticated %}
+<script>
+  var isAuthenticated = true;
+</script>
+{% else %}
+<script>
+  var isAuthenticated = false;
+</script>
+{% endif %}
+  {% endblock contents %}
+  {% block script %}
+    <script src="{% static 'js/detail.js' %}"></script>
+  {% endblock script %}

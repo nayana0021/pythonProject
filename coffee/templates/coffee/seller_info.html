@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+  <link rel="stylesheet" href="{% static 'css/seller_info.css' %}">
+{% endblock style %}
+{% block contents %}
+  <div class="container">
+    <div class="title">판매자 정보</div>
+
+    <div class="seller_name">
+      <strong class="name">central perk</strong>
+    </div>
+
+    <div class="small_info">
+      <strong>사업자정보</strong>
+
+      <div class="info_table">
+        <div class="tiny_info1">
+          <div class="names">
+            <div class="cname">상호명</div>
+            <div class="rname">센트럴퍼크(CENTRAL PERK)</div>
+          </div>
+          <div class="ceos">
+            <div class="cceo">대표자</div>
+            <div class="rceo">Kimyoungkyung</div>
+          </div>
+          <div class="callcenters">
+            <div class="call">고객센터</div>
+            <div class="numbers">010-1234-5678</div>
+          </div>
+        </div>
+        <div class="tiny_info2">
+          <div class="cnumbers">
+            <div class="cnumber">사업자등록번호</div>
+            <div class="rnumber">12321023</div>
+          </div>
+          <div class="addrs">
+            <div class="caddr">사업장 소재지</div>
+            <div class="raddr">커피시 커피구 프렌즈동 2023</div>
+          </div>
+          <div class="emails">
+            <div class="email">e-mail</div>
+            <div class="remail">CENTRAL_PERK@FRIENDS.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <input type="image" class="scroll_up" src="{% static 'img/scroll_up.png' %}" onclick="javascript:window.scrollTo(0,0)" alt="맨위로" width="30px" height="30px"/>
+
+{% endblock contents %}

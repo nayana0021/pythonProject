@@ -1,0 +1,110 @@
+.container {
+  margin-top: 100px;
+}
+
+.title hr {
+  background-color: black;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 24px;
+  border-bottom: 2px solid black;
+  padding-bottom: 20px;
+}
+
+.seller_name {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.name {
+  font-size: 3rem;
+}
+
+/* 테이블모양 디자인 */
+body,
+div,
+p {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* Apply basic styling to the layout */
+.small_info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.info_table {
+  display: flex;
+}
+
+/* Style for the title */
+strong {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* Style for the left side */
+.tiny_info1,
+.tiny_info2 {
+  display: flex;
+  flex-direction: column;
+  /* flex: 1; */
+  padding: 10px;
+}
+
+/* Style for the labels */
+.names .cname,
+.ceos .cceo,
+.callcenters .call,
+.cnumbers .cnumber,
+.addrs .caddr,
+.emails .email {
+  font-weight: bold;
+}
+
+/* Style for key-value pairs */
+.names,
+.ceos,
+.callcenters,
+.cnumbers,
+.addrs,
+.emails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+/* Style for values */
+.rname,
+.rceo,
+.numbers,
+.rnumber,
+.raddr,
+.remail {
+  margin-left: 10px;
+}
+
+.cname,
+.cceo,
+.call,
+.cnumber,
+.caddr,
+.email {
+  color: silver;
+}
+
+.scroll_up {
+  position: fixed;
+  right: 30px;
+  bottom: 40px;
+}

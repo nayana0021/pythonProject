@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+  <link rel="stylesheet" href="{% static 'css/jjim.css' %}">
+{% endblock style %}
+{% block contents %}
+  {% csrf_token %}
+
+  {% if search_list %}
+    <div class="container">
+      <div class="all">
+        <strong class="search">'{{keyword}}' 에 대한 검색 결과입니다.</strong>
+      </div>
+    </div>
+    <div class="container mt-3">
+      {% for product in search_list %}
+        <div class="product-item mt-5" data-id="{{product.id}}">
+          <img src="{{product.src}}" alt="제품사진" style="width:150px; height:150px">
+          <span class="search_name">
+            <a href="{% url 'coffee:product_detail' product.id %}">{{product.name}}</a>
+          </span>
+          <span>{{product.price}}
+            원</span>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="container mt-5 d-flex justify-content-center align-items-center">
+      <div class="search_list">
+        <strong class="search">입력하신
+          {% if keyword %}{{ keyword }}
+          {% endif %}에 대한 검색 결과가 없습니다.</strong>
+      </div>
+    </div>
+  {% endif %}
+
+ <!-- 페이징 처리 -->
+ {% if search_list %}
+  <nav aria-label="">
+    <ul class="pagination justify-content-center mt-5">
+      {% if not search_list.has_previous %}
+        <li class="page-item disabled">
+          <a class="page-link" href="#">Previous</a>
+        </li>
+      {% else %}
+        <li class="page-item">
+          <a class="page-link" href="?keyword={{ keyword }}&page={{ search_list.previous_page_number }}">Previous</a>
+        </li>
+      {% endif %}
+
+      {% for page in search_list.paginator.page_range %}
+        {% if page >= search_list.number|add:-5 and page <= search_list.number|add:5%}
+          <li class="page-item {% if page == search_list.number %}active{% endif %}" aria-current="page">
+            <a class="page-link" href="?keyword={{ keyword }}&page={{ page }}">{{page}}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+
+      {% if search_list.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?keyword={{ keyword }}&page={{ search_list.next_page_number }}">Next</a>
+        </li>
+      {% endif %}
+    </ul>
+</nav> 
+{% endif %}
+
+  <input type="image" class="scroll_up" src="{% static 'img/scroll_up.png' %}" onClick="javascript:window.scrollTo(0,0)" alt="맨위로" width="30px" height="30px"/>
+
+ 
+
+  <!-- 페이지 번호 클릭 /검색 / 정렬 시 이동할 폼 -->
+<form action="{% url 'coffee:search' %}" method="get" id="actionForm">
+    {% comment %} <input type="hidden" name="keyword" value="{{keyword|default_if_none:''}}" id="keyword"> {% endcomment %}
+<input type="hidden" name="page" value="{{page}}" id="page">
+    {% comment %} <input type="hidden" name="sort" value="{{sort}}" id="sort"> {% endcomment %}
+</form> 
+
+{% endblock contents %}
+{% block script %}
+  <script src="{% static 'js/search.js' %}"></script>
+{% endblock script %}

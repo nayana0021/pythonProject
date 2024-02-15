@@ -1,0 +1,37 @@
+.jjim_list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 10vh; /* 전체 높이의 10%로 조정 */
+  font-size: 24px; /* 글씨 크기 조정 */
+  margin-top: 100px;
+  border-bottom: 2px solid black;
+}
+
+.product_name a {
+  text-decoration: none;
+}
+
+.product_name a:hover {
+  text-decoration: underline;
+}
+
+.all {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 10vh; /* 전체 높이의 10%로 조정 */
+  font-size: 24px; /* 글씨 크기 조정 */
+  margin-top: 100px;
+  border-bottom: 2px solid black;
+}
+
+.search {
+  font-size: 24px; /* 글씨 크기 조정 */
+}
+
+.scroll_up {
+  position: fixed;
+  right: 30px;
+  bottom: 40px;
+}

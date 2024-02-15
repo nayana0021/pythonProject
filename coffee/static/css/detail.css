@@ -1,0 +1,29 @@
+.addheart {
+  border: 1px solid lightgray; /* 기본 테두리 색상 */
+  transition: border-color 0.3s ease; /* 테두리 색상 변경 효과 */
+}
+
+.addheart:hover {
+  border-color: darkgray; /* 마우스 오버시 테두리 색상 변경 */
+}
+
+.container {
+  margin-top: 100px;
+}
+
+.real_title {
+  margin-top: 150px;
+  border-bottom: 2px solid black;
+  margin-bottom: 50px;
+  font-size: 24px;
+}
+
+.title {
+  margin-bottom: 200px;
+}
+
+.scroll_up {
+  position: fixed;
+  right: 30px;
+  bottom: 40px;
+}
